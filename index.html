@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Convertor Valutar</h1>
+        <form>
+            <div class="exchange">
+                <div class="from-container">
+                    <label for="suma">Suma</label>
+                    <div class="container">
+                        <input id="suma" type="number">
+                        <select id="din"></select>
+                    </div>
+                </div>
+                <div class="swap-container">
+                    <img class="swap" src="swap.png" width="50px" height="50px">
+                </div>
+                <div class="from-container">
+                    <label for="in">Convertit in</label>
+                    <div class="container">
+                        <input type="number" readonly>
+                        <select id="in"></select>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" type="button">Calculeaza</button>
+        </form>
+    </div>
+
+    <script>
+
+        const currencies = [
+            'EUR', 'USD', 'JPY', 'BGN', 'CZK', 'DKK', 'GBP', 'HUF', 'PLN', 'RON'
+        ];
+
+        function need_update(last_update) {
+            const today = new Date();
+            const diff = 2 * 24 * 60 * 60 * 1000;
+            if (today - last_update > diff) {
+                return 1;
+            }
+            return 0;
+        }
+        function fetch_data(currencie) {
+            const url = `https://v6.exchangerate-api.com/v6/5ba9104f15ecf66be40f2a26/latest/${currencie}`;
+            fetch(url)
+                .then(x => x.json())
+                .then(json => {
+                    console.log(json);
+                    localStorage.setItem(currencie, JSON.stringify(json));
+                });
+        }
+        if (navigator.onLine) {
+            currencies.forEach(
+                currencie => {
+                    const data = JSON.parse(localStorage.getItem(currencie));
+                    if (data) {
+                        const last_update = new Date(data.time_last_update_utc);
+                        if (need_update(last_update) == 1) {
+                            fetch_data(currencie);
+                        }
+                    }
+                    else {
+                        fetch_data(currencie);
+                    }
+                }
+            )
+        }
+        let input = document.getElementById("suma");
+        let din = document.getElementById("din");
+        let in_dropdown = document.getElementById("in");
+        let btn = document.querySelector(".btn");
+        let swap = document.querySelector(".swap");
+
+        currencies.forEach(
+            currencie => {
+                din.innerHTML += `<option value="${currencie}">${currencie}</option>`;
+                in_dropdown.innerHTML += `<option value="${currencie}">${currencie}</option>`
+            }
+        )
+        btn.onclick = function () {
+            const from = din.value;
+            const to = in_dropdown.value;
+            const val = input.value;
+            if (val === '') {
+                alert("Trebuie sa introduci ceva");
+            }
+            else {
+                if (navigator.onLine) {
+                    const url = `https://v6.exchangerate-api.com/v6/5ba9104f15ecf66be40f2a26/pair/${from}/${to}/${val}`;
+                    fetch(url)
+                        .then(x => {
+                            return x.json();
+                        })
+                        .then(json => {
+                            console.log(json);
+                            console.log(json.conversion_result);
+                        })
+                        .catch(error => console.log(error));
+                }
+                else {
+                    const data = localStorage.getItem(from);
+                    if (data) {
+                        const data_json = JSON.parse(data);
+                        const conv = data_json.conversion_rates[to];
+                        console.log(val * conv);
+                    }
+                    else {
+                        alert("Nu exista date pentru a efectua schimbul offline");
+                    }
+                }
+            }
+        }
+        swap.onclick = function () {
+            const x = din.value;
+            din.value = in_dropdown.value;
+            in_dropdown.value = x;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+body{
+    font-family:'Inter';
+}
+.wrapper{
+    margin: 70px auto;
+    width: 70%;
+}
+h1{
+    text-align: center;
+    color: #89CFF0;
+    font-size:40px;
+    margin: 20px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:40px;
+}
+.exchange{
+    display: flex;
+    align-items:flex-end;
+    gap:30px;
+}
+label{
+    display: block;
+}
+.from-container select{
+    border:0px;
+    background-color: #fff;
+    outline: none;
+    border-radius: 20px;
+    font-size: 20px;
+}
+.from-container .container{
+    display: flex;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+.from-container .container input{
+    padding: 10px 15px;
+    font-size: 20px;
+    outline: none;
+    border: 0px;
+    border-radius: 20px;
+}
+form button{
+    width: 200px;
+    font-size: 20px;
+    padding: 10px 15px;
+    border: 2px solid black;
+    border-radius:20px;
+    background-color:#89CFF0;;
+    color: black;
+}
