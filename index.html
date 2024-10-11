@@ -85,6 +85,7 @@
         let in_dropdown = document.getElementById("in");
         let btn = document.querySelector(".btn");
         let swap = document.querySelector(".swap");
+        let output=document.querySelector("p");
 
         currencies.forEach(
             currencie => {
@@ -108,7 +109,7 @@
                         })
                         .then(json => {
                             console.log(json);
-                            console.log(json.conversion_result);
+                            output.innerHTML=json.conversion_result;
                         })
                         .catch(error => console.log(error));
                 }
@@ -117,7 +118,7 @@
                     if (data) {
                         const data_json = JSON.parse(data);
                         const conv = data_json.conversion_rates[to];
-                        console.log(val * conv);
+                        output.innerHTML=val * conv;
                     }
                     else {
                         alert("Nu exista date pentru a efectua schimbul offline");

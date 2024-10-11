@@ -37,7 +37,6 @@ form {
 label {
     display: block;
 }
-
 .from-container select {
     border: 0px;
     background-color: #fff;
@@ -79,4 +78,11 @@ form button {
     background-color: #89CFF0;
     ;
     color: black;
+}
+
+@media screen and (max-width:810px){
+    .exchange {
+        flex-direction: column;
+        align-items: center;
+    }
 }
