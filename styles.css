@@ -1,61 +1,82 @@
-*{
+* {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
 }
-body{
-    font-family:'Inter';
+
+body {
+    font-family: 'Inter';
 }
-.wrapper{
+
+.wrapper {
     margin: 70px auto;
     width: 70%;
 }
-h1{
+
+h1 {
     text-align: center;
     color: #89CFF0;
-    font-size:40px;
+    font-size: 40px;
     margin: 20px;
 }
-form{
+
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:40px;
+    gap: 40px;
 }
-.exchange{
+
+.exchange {
     display: flex;
-    align-items:flex-end;
-    gap:30px;
+    align-items: flex-end;
+    gap: 30px;
 }
-label{
+
+label {
     display: block;
 }
-.from-container select{
-    border:0px;
+
+.from-container select {
+    border: 0px;
     background-color: #fff;
     outline: none;
     border-radius: 20px;
     font-size: 20px;
 }
-.from-container .container{
+
+.from-container .container {
     display: flex;
     border: 2px solid black;
     border-radius: 20px;
 }
-.from-container .container input{
+
+.from-container .container input {
     padding: 10px 15px;
     font-size: 20px;
     outline: none;
     border: 0px;
     border-radius: 20px;
 }
-form button{
+
+.from-container .container p {
+    padding: 10px 15px;
+    font-size: 20px;
+    outline: none;
+    border: 0px;
+    border-radius: 20px;
+    min-width: 281px;
+    min-height: 43px;
+}
+
+form button {
     width: 200px;
     font-size: 20px;
     padding: 10px 15px;
     border: 2px solid black;
-    border-radius:20px;
-    background-color:#89CFF0;;
+    border-radius: 20px;
+    background-color: #89CFF0;
+    ;
     color: black;
 }
