@@ -50,10 +50,11 @@
         function need_update(last_update) {
             const today = new Date();
             const diff = 2 * 24 * 60 * 60 * 1000;
-            if (today - last_update > diff) {
-                return 1;
+            const delay=3*60*60*1000; //diferenta dintre utc si timpul romaniei
+            if (today - last_update-sdelay > diff) {
+                return true;
             }
-            return 0;
+            return false;
         }
         function fetch_data(currencie) {
             const url = `https://v6.exchangerate-api.com/v6/5ba9104f15ecf66be40f2a26/latest/${currencie}`;
@@ -70,7 +71,7 @@
                     const data = JSON.parse(localStorage.getItem(currencie));
                     if (data) {
                         const last_update = new Date(data.time_last_update_utc);
-                        if (need_update(last_update) == 1) {
+                        if (need_update(last_update)) {
                             fetch_data(currencie);
                         }
                     }
